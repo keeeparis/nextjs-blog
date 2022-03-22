@@ -3,10 +3,11 @@ import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
+import { PostProps } from '../types'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
-export function getSortedPostsData() {
+export const getSortedPostsData = () => {
     // Get file names under /posts
     const fileNames = fs.readdirSync(postsDirectory)
     const allPostsData = fileNames.map(fileName => {
@@ -18,15 +19,16 @@ export function getSortedPostsData() {
         const fileContents = fs.readFileSync(fullPath, 'utf8')
 
         // Use gray-matter to parse the post metadata section
-        const matterResult = matter(fileContents)
+        const { data } = matter(fileContents)
 
         // Combine the data with the id
         return {
             id,
-            ...matterResult.data
+            ...data
         }
     })
 
+    // @ts-ignore
     return allPostsData.sort(({ date: a }, { date: b }) => {
         return (a < b) 
             ?   1
@@ -47,7 +49,7 @@ export const getAllPostIds = () => {
     })
 }
 
-export const getPostData = async (id) => {
+export const getPostData = async (id: string | string[]) => {
     const fullPath = path.join(postsDirectory, `${id}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
 

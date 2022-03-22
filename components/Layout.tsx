@@ -8,7 +8,7 @@ import { FC } from 'react'
 const name = 'Vladimir Trotsenko'
 export const siteTitle = 'Next.js Sample Website'
 
-const Layout = ({ children, home }) => {
+const Layout:FC<{home?: boolean}> = ({ children, home }) => {
     return (
         <div className={styles.container}>
             <Head>
