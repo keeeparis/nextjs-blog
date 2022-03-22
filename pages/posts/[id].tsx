@@ -1,3 +1,4 @@
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import Date from '../../components/Date'
@@ -25,7 +26,7 @@ const Post = ({ postData }) => {
 
 export default Post
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = () => {
     // все возможные пути
     const paths = getAllPostIds()
     return {
@@ -34,7 +35,7 @@ export async function getStaticPaths() {
     }
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
     // props to hydrate component with data
     const postData = await getPostData(params.id)
     return {

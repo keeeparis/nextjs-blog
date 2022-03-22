@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from './Layout.module.scss'
 import utilStyles from '../styles/utils.module.scss'
+import { FC } from 'react'
 
 const name = 'Vladimir Trotsenko'
 export const siteTitle = 'Next.js Sample Website'
